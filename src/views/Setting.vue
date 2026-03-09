@@ -63,9 +63,16 @@
               </div>
               <div class="el-upload__tip" slot="tip">3. 点击更新默认编码提示：
                 <!-- <el-button-group> -->
-                <el-button type="primary" plain size="mini" icon="el-icon-download" :loading="isCodingLoading" @click="handleCodingDownload('tiger')">『虎码单字2026』</el-button>
-                <el-button type="primary" plain size="mini" icon="el-icon-download" :loading="isCodingLoading" @click="handleCodingDownload('tigerCi')">『虎码字词2026』</el-button>
-                <el-button type="primary" plain size="mini" icon="el-icon-download" :loading="isCodingLoading" @click="handleCodingDownload('xh')">『小鹤词提』</el-button>
+                <el-button
+                  v-for="btn in (codingConfig?.buttons || [])"
+                  :key="btn.type"
+                  type="primary"
+                  plain
+                  size="mini"
+                  icon="el-icon-download"
+                  :loading="isCodingLoading"
+                  @click="handleCodingDownload(btn.type)"
+                >{{ btn.label }}</el-button>
                 <!-- </el-button-group> -->
               </div>
             </el-upload>
@@ -222,6 +229,18 @@ import aes from 'crypto-js/aes'
 import encUTF8 from 'crypto-js/enc-utf8'
 import punctuations from '../store/util/punctuation'
 
+interface ICodingType {
+  title: string;
+  url: string;
+  encrypted: boolean;
+  encryptKey?: string;
+}
+
+interface ICodingConfig {
+  codingsTypes: Record<string, ICodingType>;
+  buttons: Array<{ type: string; label: string }>;
+}
+
 interface KeyValue {
   key: string;
   value: string;
@@ -272,6 +291,8 @@ export default class Setting extends Vue {
   private hintOptions = HINT_OPTIONS
 
   private resultOptions = RESULT_OPTIONS
+
+  private codingConfig: ICodingConfig | null = null
 
   private form = new SettingState()
 
@@ -434,26 +455,26 @@ export default class Setting extends Vue {
 
   created (): void {
     this.resetForm()
+    this.loadCodingConfig()
+  }
+
+  async loadCodingConfig (): Promise<void> {
+    try {
+      const codingConfig = await fetch('/static/codings-config.json').then(res => res.json())
+      this.codingConfig = codingConfig
+    } catch (err) {
+      console.error('Failed to load coding config:', err)
+    }
   }
 
   handleCodingDownload (type: 'xh' | 'tiger' | 'tigerCi') {
     console.log('coding type: ', type)
-    this.isCodingLoading = true
-    const codingsTypes = {
-      xh: {
-        title: '『小鹤词提』',
-        url: '/static/codingsXH.txt'
-      },
-      tiger: {
-        title: '『虎码单字』',
-        url: '/static/singleHM.txt?v=2026'
-      },
-      tigerCi: {
-        title: '『虎码字词』',
-        url: '/static/wordsHM.txt?v=2026'
-      }
+    if (!this.codingConfig) {
+      this.$message({ message: '配置文件未加载完成，请稍后再试', type: 'warning' })
+      return
     }
-    const codingType = codingsTypes[type]
+    this.isCodingLoading = true
+    const codingType = this.codingConfig.codingsTypes[type]
     const typeText = codingType.title
 
     const saveCodings = (content: string) => {
@@ -476,11 +497,11 @@ export default class Setting extends Vue {
       })
     }
 
-    if (type === 'xh') {
+    if (codingType.encrypted && codingType.encryptKey) {
       fetch(codingType.url)
         .then(res => res.text())
         .then(ret => {
-          const bytes = aes.decrypt(ret, 'U2FsdGVkX19wPZQjUTQ0')
+          const bytes = aes.decrypt(ret, codingType.encryptKey!)
           const originalContent = bytes.toString(encUTF8)
           return saveCodings(originalContent)
         }).catch((err) => {

@@ -1,0 +1,25 @@
+{
+  "codingsTypes": {
+    "xh": {
+      "title": "『小鹤词提』",
+      "url": "/static/codingsXH.txt",
+      "encrypted": true,
+      "encryptKey": "U2FsdGVkX19wPZQjUTQ0"
+    },
+    "tiger": {
+      "title": "『虎码单字』",
+      "url": "/static/singleHM.txt?v=2026",
+      "encrypted": false
+    },
+    "tigerCi": {
+      "title": "『虎码字词』",
+      "url": "/static/wordsHM.txt?v=2026",
+      "encrypted": false
+    }
+  },
+  "buttons": [
+    { "type": "tiger", "label": "『虎码单字2026』" },
+    { "type": "tigerCi", "label": "『虎码字词2026』" },
+    { "type": "xh", "label": "『小鹤词提』" }
+  ]
+}
