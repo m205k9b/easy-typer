@@ -1,4 +1,3 @@
-
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex'
 import { QuickTypingState, SummaryState } from './types'
 import db from './util/Database'

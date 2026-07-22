@@ -15,19 +15,19 @@ export class Coding {
   /**
    * 编码
    */
-  code: string;
+  code: string
   /**
    * 权重
    */
-  weight: number;
+  weight: number
   /**
    * 选重位置
    */
-  index = 0;
+  index = 0
   /**
    * 编码是为四码唯一
    */
-  fourthSingle = false;
+  fourthSingle = false
 
   constructor (weight: number, code: string, index?: number) {
     this.code = code
@@ -42,7 +42,7 @@ export class Phrase {
   /**
    * 文本
    */
-  text: string;
+  text: string
   /**
    * 编码
    */
@@ -58,27 +58,27 @@ export class Phrase {
  * 提示文字
  */
 export class Word {
-  id: number;
+  id: number
   /**
    * 文字
    */
-  text: string;
+  text: string
   /**
    * 选重
    */
-  select: string;
+  select: string
   /**
    * 类别
    */
-  type: string;
+  type: string
   /**
    * 可以用标点顶屏
    */
-  autoSelect: boolean;
+  autoSelect: boolean
   /**
    * 编码
    */
-  codings: Array<Coding>;
+  codings: Array<Coding>
 
   constructor (id: number, text: string, type = '', autoSelect = false, select = '', codings: Array<Coding> = []) {
     this.id = id
@@ -113,177 +113,177 @@ export class RacingState {
   /**
    * 状态
    */
-  status = 'wait';
+  status = 'wait'
   /**
    * 输入内容
    */
-  input = '';
+  input = ''
   /**
    * 用时
    */
-  time = 0;
+  time = 0
   /**
    * 开始时间
    */
-  start = 0;
+  start = 0
   /**
    * 按键序列
    */
-  keys: Array<string> = [];
+  keys: Array<string> = []
   /**
    * 理想按键序列
    */
-  idealKeys = '';
+  idealKeys = ''
   /**
    * 错字
    */
-  error = 0;
+  error = 0
   /**
    * 回改
    */
-  replace = 0;
+  replace = 0
   /**
    * 清屏键数
    */
-  cleared = 0;
+  cleared = 0
   /**
    * 选重
    */
-  selective = 0;
+  selective = 0
   /**
    * 打词字数
    */
-  phrase = 0;
+  phrase = 0
   /**
    * 重打
    */
-  retry = 1;
+  retry = 1
   /**
    * 计时器
    */
-  timer = 0;
+  timer = 0
   /**
    * 暂停次数
    */
-  pauseCount = 0;
+  pauseCount = 0
   /**
    * 暂停时长
    */
-  pauseTime = 0;
+  pauseTime = 0
   /**
    * 键数
    */
-  keyCount: LooseObject<number> = emptyKeyCount();
+  keyCount: LooseObject<number> = emptyKeyCount()
 }
 
 export class SummaryState {
   /**
    * 当前日期
    */
-  date = 0;
+  date = 0
   /**
    * 保存记录的日期
    */
-  saved = '';
+  saved = ''
   /**
    * 今日打字数
    */
-  todayWords = 0;
+  todayWords = 0
   /**
    * 累计打字数
    */
-  totalWords = 0;
+  totalWords = 0
   /**
    * 今日打字错误数
    */
-  todayErrorWords = 0;
+  todayErrorWords = 0
   /**
   * 累计打字错误数
   */
-  totalErrorWords = 0;
+  totalErrorWords = 0
   /**
    * 连续天数
    */
-  consecutiveDays = 0;
+  consecutiveDays = 0
   /**
    * 累计打字天数
    */
-  totalDays = 0;
+  totalDays = 0
   /**
    * 跟打历史已加载？
    */
-  loaded = false;
+  loaded = false
 }
 
 export class KataState {
   /**
    * 跟打文本标题
    */
-  articleTitle = '';
+  articleTitle = ''
   /**
    * 跟打文本
    */
-  articleText = '';
+  articleText = ''
   /**
    * 当前段号
    */
-  currentParagraphNo = 1;
+  currentParagraphNo = 1
   /**
    * 段号标识
    */
-  indentity = 1;
+  indentity = 1
   /**
    * 当前跟打文本 - 可能乱序
    */
-  currentContent = '';
+  currentContent = ''
   /**
    * 每段文字数
    */
-  paragraphSize = 10;
+  paragraphSize = 10
   /**
    * 当前kata模式 0未开始 1进行中 2已结束
    */
-  mode = 0;
+  mode = 0
   /**
    * 是否是从阅读模式发文
    */
-  isReading = false;
+  isReading = false
   /**
    * 是否提示正在发文
    */
-  hasTipWarning = false;
+  hasTipWarning = false
   /**
   * 指标校验-开关
   */
-  criteriaOpen = false;
+  criteriaOpen = false
   /**
    * 指标校验-击键
    */
-  criteriaHitSpeed = 4;
+  criteriaHitSpeed = 4
   /**
    * 指标校验-速度
    */
-  criteriaSpeed = 40;
+  criteriaSpeed = 40
   /**
    * 指标校验-达标次数
    */
-  criteriaAchieved = 1;
+  criteriaAchieved = 1
   /**
    * 当前段-已达标次数
    */
-  achievedCount = 0;
+  achievedCount = 0
   /**
    * 指标校验-键准
    */
-  criteriaAccuracy = 100;
+  criteriaAccuracy = 100
   /**
    * 文本类型 1正常文本 2\n分段文本
    */
-  textType = 1;
+  textType = 1
   /**
    * 指标校验-操作 random乱序 retry重打 noop不处理
    */
-  criteriaAction: 'noop' | 'random' | 'retry' = 'random';
+  criteriaAction: 'noop' | 'random' | 'retry' = 'random'
 }
 
 export interface BookModel {
@@ -300,85 +300,85 @@ export class ReadingState {
   /**
    * 书籍列表
    */
-  books = [] as BookModel[];
+  books = [] as BookModel[]
   /**
    * 当前书
    */
-  bookConf = {} as BookModel;
+  bookConf = {} as BookModel
 }
 
 export class RecordState {
   /**
    * 日期
    */
-  dates = [];
+  dates = []
   /**
    * 速度
    */
-  speeds = [];
+  speeds = []
   /**
    * 击键
    */
-  hitSpeeds = [];
+  hitSpeeds = []
   /**
    * 码长
    */
-  codeLengthList = [];
+  codeLengthList = []
   /**
    * 总条数
    */
-  total = 0;
+  total = 0
   /**
    * 总时长
    */
-  totalDuration = 0;
+  totalDuration = 0
   /**
    * 今日时长
    */
-  todayDuration = 0;
+  todayDuration = 0
 }
 
 export class QuickTypingState {
-  article!: ArticleState;
-  racing!: RacingState;
-  kata!: KataState;
-  reading!: ReadingState;
+  article!: ArticleState
+  racing!: RacingState
+  kata!: KataState
+  reading!: ReadingState
   /**
    * 编码
    */
-  codings = new TrieNode();
+  codings = new TrieNode()
   /**
    * 设置
    */
-  setting!: SettingState;
+  setting!: SettingState
   /**
    * 登录状态
    */
-  login!: LoginState;
+  login!: LoginState
   /**
    * 汇兑数据
    */
-  summary = new SummaryState();
+  summary = new SummaryState()
   /**
    * 总键数
    */
-  overallKeyCount = emptyKeyCount();
+  overallKeyCount = emptyKeyCount()
   /**
    * 成绩
    */
-  achievements: Array<Achievement> = [];
+  achievements: Array<Achievement> = []
   /**
    * 成绩总条数
    */
-  totalAchievements = 0;
+  totalAchievements = 0
   /**
    * appVersion
    */
-  appVersion = '';
+  appVersion = ''
   /**
    * 跟打记录
    */
-  records!: RecordState;
+  records!: RecordState
 }
 
 export interface InterfaceStyle {
@@ -662,55 +662,55 @@ export interface LoginUser {
 }
 
 export class LoginState {
-  authenticated = false;
-  token = '';
-  user: LoginUser | null = null;
+  authenticated = false
+  token = ''
+  user: LoginUser | null = null
 }
 
 export class Achievement {
-  id: number | null = null;
+  id: number | null = null
   /**
    * 标识
    */
-  identity = '';
-  title = '';
-  typeSpeed = 0;
-  hitSpeed = 0;
-  codeLength = 0;
-  contentLength = 0;
-  accuracy = 0;
-  balance = 0;
-  leftHand = 0;
-  rightHand = 0;
-  idealCodeLength = 0;
-  keys = 0;
-  backspace = 0;
-  enter = 0;
+  identity = ''
+  title = ''
+  typeSpeed = 0
+  hitSpeed = 0
+  codeLength = 0
+  contentLength = 0
+  accuracy = 0
+  balance = 0
+  leftHand = 0
+  rightHand = 0
+  idealCodeLength = 0
+  keys = 0
+  backspace = 0
+  enter = 0
 
   /**
    * 用时
    */
-  usedTime = 0;
+  usedTime = 0
   /**
    * 回改
    */
-   replace = 0;
-   /**
+  replace = 0
+  /**
     * 选重
     */
-   selective = 0;
-   /**
+  selective = 0
+  /**
     * 打词字数
     */
-   phrase = 0;
-   phraseRate = 0;
-   /**
+  phrase = 0
+  phraseRate = 0
+  /**
     * 暂停次数
     */
-   pauseCount = 0;
-   /**
+  pauseCount = 0
+  /**
     * 暂停时长
     */
-   pauseTime = 0;
-   finishedTime = Date.now();
+  pauseTime = 0
+  finishedTime = Date.now()
 }

@@ -53,7 +53,7 @@ export default class Achievements extends Vue {
   private achievements!: Array<Achievement>
 
   @State('totalAchievements')
-  totalAchievement!: number
+    totalAchievement!: number
 
   @Mutation('updateAchievements')
   private updateAchievements!: Function

@@ -6,7 +6,7 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     '@vue/standard',
-    '@vue/typescript/recommended'
+    '@vue/typescript'
   ],
   parserOptions: {
     ecmaVersion: 2020
@@ -15,7 +15,8 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-var-requires': 'warn',
-    '@typescript-eslint/interface-name-prefix': 'off'
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error', { functions: false, classes: false, typedefs: false }]
   },
   overrides: [
     {

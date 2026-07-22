@@ -122,8 +122,8 @@ const addAscii = (trie: TrieTree, from: number, to: number) => {
 }
 
 class Duplicate {
-  text: string;
-  count = 1;
+  text: string
+  count = 1
 
   constructor (text: string) {
     this.text = text
@@ -172,7 +172,7 @@ export function parseTrieNodeByCodinds (codings: string): TrieTree {
     }
     const phrase = trie.get(duplicate.text)
     if (phrase) {
-      phrase.codings.filter(v => v.code === code).every(v => {
+      phrase.codings.filter(v => v.code === code).forEach(v => {
         v.fourthSingle = true
         // 四码唯一时，权重减0.2: 3码首选=40，4码唯一=40.3， 4码首选=40.5
         v.weight -= 0.2

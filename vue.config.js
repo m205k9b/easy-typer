@@ -1,4 +1,7 @@
 const sitemapPlugin = require('sitemap-webpack-plugin').default
+const fs = require('fs')
+const path = require('path')
+const webpack = require('webpack')
 
 const routes = [
   '/',
@@ -29,6 +32,40 @@ process.env.VUE_APP_VERSION = require('./package.json').version
 process.env.VUE_APP_WEB_VERSION = version
 
 const name = '木易跟打器'
+
+class StaticRouteFallbackPlugin {
+  constructor (routes) {
+    this.routes = routes
+  }
+
+  apply (compiler) {
+    compiler.hooks.afterEmit.tap('StaticRouteFallbackPlugin', compilation => {
+      if (process.env.NODE_ENV !== 'production') {
+        return
+      }
+
+      const outputPath = compiler.options.output.path
+      const indexPath = path.join(outputPath, 'index.html')
+
+      if (!fs.existsSync(indexPath)) {
+        compilation.warnings.push(new Error('index.html not found; static route fallbacks were not generated'))
+        return
+      }
+
+      const indexHtml = fs.readFileSync(indexPath)
+      this.routes
+        .filter(route => route !== '/')
+        .forEach(route => {
+          const routePath = route.replace(/^\/+/, '').replace(/\/+$/, '')
+          const targetDir = path.join(outputPath, routePath)
+          const targetPath = path.join(targetDir, 'index.html')
+
+          fs.mkdirSync(targetDir, { recursive: true })
+          fs.writeFileSync(targetPath, indexHtml)
+        })
+    })
+  }
+}
 
 module.exports = {
   pwa: {
@@ -83,9 +120,7 @@ module.exports = {
     })
     config.module.rule('md')
       .test(/\.md/)
-      .use('raw-loader')
-      .loader('raw-loader')
-      .end()
+      .type('asset/source')
     config.plugin('sitemap').use(sitemapPlugin, [
       {
         base: 'https://typer.owenyang.top',
@@ -99,16 +134,23 @@ module.exports = {
       }
     ])
   },
-  productionSourceMap: false,
-  pluginOptions: {
-    prerenderSpa: {
-      registry: undefined,
-      renderRoutes: routes,
-      useRenderEvent: true,
-      headless: true,
-      onlyProduction: true
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer']
+      }),
+      new StaticRouteFallbackPlugin(routes)
+    ],
+    resolve: {
+      fallback: {
+        crypto: require.resolve('crypto-browserify'),
+        stream: require.resolve('stream-browserify'),
+        buffer: require.resolve('buffer/')
+      }
     }
   },
+  productionSourceMap: false,
   devServer: {
     proxy: {
       '^/api': {

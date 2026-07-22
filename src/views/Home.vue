@@ -588,7 +588,7 @@ export default class Home extends Vue {
             this.loadText(val)
             this.$router.push('/').catch(noop)
           } catch (error) {
-            this.$message.error(error.message)
+            this.$message.error((error as Error).message)
           }
         }).catch(() => {
           console.log('err')

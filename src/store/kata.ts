@@ -1,4 +1,3 @@
-
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex'
 import { QuickTypingState, KataState } from './types'
 import { isMobile, shuffle } from './util/common'

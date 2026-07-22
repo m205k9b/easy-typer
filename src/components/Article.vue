@@ -42,7 +42,7 @@ export default class Article extends Vue {
   private input!: string
 
   @article.State('shortest')
-  private shortest!: ShortestPath<Word> | null;
+  private shortest!: ShortestPath<Word> | null
 
   @racing.Getter('progress')
   private progress!: number

@@ -1,4 +1,3 @@
-
 import dayjs from 'dayjs'
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex'
 import { Achievement, QuickTypingState, RecordState } from './types'

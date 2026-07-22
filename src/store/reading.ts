@@ -70,8 +70,8 @@ const actions: ActionTree<ReadingState, QuickTypingState> = {
     const books = state.books.map(book => {
       return book.id === state.bookConf.id
         ? {
-          ...state.bookConf
-        }
+            ...state.bookConf
+          }
         : book
     })
 
