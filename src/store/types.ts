@@ -542,6 +542,23 @@ export class SettingState {
    * 非首选键，用于判断选重率
    */
   altSelectKey = '234567890;\''
+
+  /**
+   * 非首选键的KeyboardEvent.code，用于判断选重率
+   */
+  altSelectKeyCodes = [
+    'Semicolon',
+    'Quote',
+    'Digit2',
+    'Digit3',
+    'Digit4',
+    'Digit5',
+    'Digit6',
+    'Digit7',
+    'Digit8',
+    'Digit9'
+  ]
+
   /**
    * 是否启用4码唯一时自动上屏
    */

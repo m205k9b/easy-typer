@@ -367,7 +367,7 @@ const mutations: MutationTree<RacingState> = {
     state.timer = 0
   },
 
-  typing (state, { e, altSelectKey }: { e: KeyboardEvent; altSelectKey: string }): void {
+  typing (state, { e, altSelectKeyCodes }: { e: KeyboardEvent; altSelectKeyCodes: string[] }): void {
     const { code } = e
     const { keyCount, keys } = state
     const count = keyCount[code]
@@ -375,7 +375,7 @@ const mutations: MutationTree<RacingState> = {
     keys.push(code)
 
     // 判断选重
-    if (e.isComposing && altSelectKey.indexOf(e.key) >= 0) {
+    if (e.isComposing && altSelectKeyCodes.indexOf(e.code) >= 0) {
       state.selective++
     }
 
@@ -456,8 +456,8 @@ const actions: ActionTree<RacingState, QuickTypingState> = {
       commit('start')
     }
 
-    const { altSelectKey } = rootState.setting
-    commit('typing', { e, altSelectKey })
+    const { altSelectKeyCodes } = rootState.setting
+    commit('typing', { e, altSelectKeyCodes })
   },
 
   accept ({ commit, state, rootState }, input: string): void {
