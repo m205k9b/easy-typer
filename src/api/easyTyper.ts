@@ -139,7 +139,7 @@ const sha1Hmac = (input: string): string => {
 }
 
 const verify = (content: string, sign: string): boolean => {
-  const matched = /^-----第(\d+)段-(\d+)Z-(.+)V--xc.sw.*$/.exec(sign)
+  const matched = /^-----第([a-zA-Z0-9]+)段-(\d+)Z-(.+)V--xc.sw.*$/.exec(sign)
   if (!matched) {
     return true
   }

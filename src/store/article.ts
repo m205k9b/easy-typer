@@ -125,7 +125,7 @@ const parse = (content: string, codings: TrieNode, setting: SettingState, getSel
 }
 
 const parseIdentity = (content: string): string => {
-  return content.replace(/-+第(\d+)段.*/, '$1')
+  return content.replace(/-+第([a-zA-Z0-9]+)段.*/, '$1')
 }
 
 const replaceContent = (input: string, setting = {
